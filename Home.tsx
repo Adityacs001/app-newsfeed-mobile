@@ -53,7 +53,8 @@ export default function Home({ navigation }: { navigation: any }) {
   async function fetchdata(q: string, locale: string) {
     if (locale === "en") locale = "us";
     await fetch(
-      `https://newsapi.org/v2/top-headlines?country=${locale}&apiKey=c3462c7d8202468e916b6e7a98f80472&q=${q}`
+      //`https://newsapi.org/v2/top-headlines?country=${locale}&apiKey=c3462c7d8202468e916b6e7a98f80472&q=${q}`
+      `https://newsapi.org/v2/top-headlines?country=${locale}&apiKey=2582b18a4b574a8388bbd9a9078d5363&q=${q}`
     )
       .then((response) => {
         if (response.ok) {
