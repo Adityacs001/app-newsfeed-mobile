@@ -14,6 +14,7 @@ import {
 import "./Localize";
 import { useTranslation } from "react-i18next";
 import News from "./model/news";
+import { ThemeContext } from "./Theme";
 
 import Footer from "./Footer";
 
@@ -42,6 +43,8 @@ const Item = ({
 );
 
 export default function Home({ navigation }: { navigation: any }) {
+  const { theme } = React.useContext(ThemeContext);
+
   const { t, i18n } = useTranslation();
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -84,8 +87,12 @@ export default function Home({ navigation }: { navigation: any }) {
 
   const renderItem = ({ item }: { item: News }) => {
     const backgroundColor =
-      item.title === selectednews?.title ? "#C7D2FE" : "#E2E8F0";
-    const color = item.title === selectednews?.title ? "#4338CA" : "#334155";
+      item.title === selectednews?.title
+        ? theme.backgroundCardSelected
+        : theme.backgroundCard;
+
+    const color =
+      item.title === selectednews?.title ? theme.highligthedcolor : theme.color;
 
     return (
       <Item
@@ -100,7 +107,9 @@ export default function Home({ navigation }: { navigation: any }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
+    >
       <View style={styles.wrapper}>
         {isLoading ? (
           <Text>Loading...</Text>
@@ -108,8 +117,14 @@ export default function Home({ navigation }: { navigation: any }) {
           <View style={styles.listwrapper}>
             <TextInput
               onChangeText={setSearchTerm}
-              style={[styles.search, !!searchterm && styles.search_focused]}
+              style={[
+                styles.search,
+                !!searchterm && styles.search_focused,
+                { color: theme.color },
+                { borderColor: theme.borderColor },
+              ]}
               placeholder={t("searchnews")}
+              placeholderTextColor={theme.color}
             />
             <FlatList
               style={styles.list}

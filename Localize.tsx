@@ -10,6 +10,7 @@ i18n.use(initReactI18next).init({
         refresh: "Refresh",
         searchnews: "Search news by title ...",
         selectlanguage: "Select Language",
+        selecttheme: "Select Theme",
       },
     },
     bg: {
@@ -19,6 +20,7 @@ i18n.use(initReactI18next).init({
         refresh: "Опресняване",
         searchnews: "Търсене на новини по заглавие ...",
         selectlanguage: "Избери език",
+        selecttheme: "Изберете тема",
       },
     },
   },

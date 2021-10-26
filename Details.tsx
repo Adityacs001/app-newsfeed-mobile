@@ -3,6 +3,7 @@ import * as React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import News from "./model/news";
 import Footer from "./Footer";
+import { ThemeContext } from "./Theme";
 
 const getFormattedDate = (input: string): string => {
   let formatteddate: string = input;
@@ -15,14 +16,23 @@ const getFormattedDate = (input: string): string => {
 
 const Details = ({ route, navigation }: { route: any; navigation: any }) => {
   const news = route.params as News;
+  const { theme } = React.useContext(ThemeContext);
 
   return (
-    <ScrollView style={styles.wrapper}>
-      <Text style={styles.title}>{news?.title}</Text>
-      <Text style={styles.content}>{news?.content}</Text>
+    <ScrollView
+      style={[styles.wrapper, { backgroundColor: theme.backgroundColor }]}
+    >
+      <Text style={[styles.title, { color: theme.color }]}>{news?.title}</Text>
+      <Text style={[styles.content, { color: theme.color }]}>
+        {news?.content}
+      </Text>
       <View style={styles.publishedon}>
-        <Text style={[styles.description, styles.author]}>
-          <Text style={[styles.title, { color: "#000", fontWeight: "normal" }]}>
+        <Text
+          style={[styles.description, styles.author, { color: theme.color }]}
+        >
+          <Text
+            style={[styles.title, { color: theme.color, fontWeight: "normal" }]}
+          >
             Published on :{" "}
           </Text>
           {getFormattedDate(news?.publishedAt)}
@@ -34,10 +44,14 @@ const Details = ({ route, navigation }: { route: any; navigation: any }) => {
           uri: news.urlToImage,
         }}
       />
-      <Text style={styles.description}>{news?.description}</Text>
+      <Text style={[styles.description, { color: theme.color }]}>
+        {news?.description}
+      </Text>
       <View style={styles.credits}>
-        <Text style={[styles.description, styles.author]}>
-          <Text style={[styles.title, { color: "#000" }]}>By</Text>{" "}
+        <Text
+          style={[styles.description, styles.author, { color: theme.color }]}
+        >
+          <Text style={[styles.title, { color: theme.color }]}>By</Text>{" "}
           {news?.author}
         </Text>
       </View>

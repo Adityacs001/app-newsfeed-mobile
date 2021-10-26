@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { ThemeProvider } from "./Theme";
 
 import Home from "./Home";
 import Details from "./Details";
@@ -35,7 +36,8 @@ function SettingsStackScreen() {
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator initialRouteName="Home">
+      <ThemeProvider>
+        {/* <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -47,23 +49,26 @@ export default function App() {
           options={{ title: "New Details" }}
         />
       </Stack.Navigator> */}
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            if (route.name === "News") {
-              return <Ionicons name={"newspaper"} size={size} color={color} />;
-            } else if (route.name === "Settings") {
-              return <Ionicons name={"settings"} size={size} color={color} />;
-            }
-          },
-          tabBarActiveTintColor: "#4338CA",
-          tabBarInactiveTintColor: "gray",
-          headerShown: false,
-        })}
-      >
-        <Tab.Screen name="News" component={NewsStackScreen} />
-        <Tab.Screen name="Settings" component={SettingsStackScreen} />
-      </Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              if (route.name === "Home") {
+                return (
+                  <Ionicons name={"newspaper"} size={size} color={color} />
+                );
+              } else if (route.name === "Settings") {
+                return <Ionicons name={"settings"} size={size} color={color} />;
+              }
+            },
+            tabBarActiveTintColor: "#4338CA",
+            tabBarInactiveTintColor: "gray",
+            headerShown: false,
+          })}
+        >
+          <Tab.Screen name="Home" component={NewsStackScreen} />
+          <Tab.Screen name="Settings" component={SettingsStackScreen} />
+        </Tab.Navigator>
+      </ThemeProvider>
     </NavigationContainer>
   );
 }
