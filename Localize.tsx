@@ -9,6 +9,7 @@ i18n.use(initReactI18next).init({
         recentnewz: "Recent News",
         refresh: "Refresh",
         searchnews: "Search news by title ...",
+        selectlanguage: "Select Language",
       },
     },
     bg: {
@@ -16,7 +17,8 @@ i18n.use(initReactI18next).init({
         sampleen: "Sample Bulgarian Text",
         recentnewz: "Последните новини",
         refresh: "Опресняване",
-        searchnews: "Search news by title ...",
+        searchnews: "Търсене на новини по заглавие ...",
+        selectlanguage: "Избери език",
       },
     },
   },
@@ -26,5 +28,10 @@ i18n.use(initReactI18next).init({
     escapeValue: false, // not needed for react as it escapes by default
   },
 });
+
+export const LANGUAGES = [
+  { code: "en", label: "English" },
+  { code: "bg", label: "Bulgaria" },
+];
 
 export default i18n;

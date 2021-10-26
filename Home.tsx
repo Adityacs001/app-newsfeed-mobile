@@ -130,7 +130,7 @@ export default function Home({ navigation }: { navigation: any }) {
         )}
       </View>
 
-      <Footer />
+      {/* <Footer /> */}
     </SafeAreaView>
   );
 }

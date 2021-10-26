@@ -50,24 +50,19 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            if (route.name === "Home") {
-              return <Ionicons name={"home"} size={size} color={color} />;
+            if (route.name === "News") {
+              return <Ionicons name={"newspaper"} size={size} color={color} />;
             } else if (route.name === "Settings") {
               return <Ionicons name={"settings"} size={size} color={color} />;
             }
           },
+          tabBarActiveTintColor: "#4338CA",
+          tabBarInactiveTintColor: "gray",
+          headerShown: false,
         })}
       >
-        <Tab.Screen
-          name="Home"
-          component={NewsStackScreen}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingsStackScreen}
-          options={{ headerShown: false }}
-        />
+        <Tab.Screen name="News" component={NewsStackScreen} />
+        <Tab.Screen name="Settings" component={SettingsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

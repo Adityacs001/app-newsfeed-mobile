@@ -1,59 +1,74 @@
 import * as React from "react";
-
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
-import News from "./model/news";
+import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useTranslation } from "react-i18next";
+import { LANGUAGES } from "./Localize";
 
 const Settings = ({ route, navigation }: { route: any; navigation: any }) => {
-  const news = route.params as News;
+  const { t, i18n } = useTranslation();
+
+  const [locale, setLocale] = React.useState<string>(i18n.language);
+
+  React.useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [locale]);
 
   return (
-    <ScrollView style={styles.wrapper}>
-      <Text style={styles.title}>{news?.title}</Text>
-    </ScrollView>
+    <View style={styles.container}>
+      <View style={styles.row}>
+        <Text style={styles.title}>{t("selectlanguage")}</Text>
+        <Ionicons color="#444" size={28} name="ios-language-outline" />
+      </View>
+
+      {LANGUAGES.map((language) => {
+        const selectedLanguage = language.code === locale;
+
+        return (
+          <Pressable
+            key={language.code}
+            style={styles.buttonContainer}
+            disabled={selectedLanguage}
+            onPress={() => setLocale(language.code)}
+          >
+            <Text
+              style={[selectedLanguage ? styles.selectedText : styles.text]}
+            >
+              {language.label}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: "#fff",
+  container: {
+    paddingTop: 10,
+    paddingHorizontal: 16,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   title: {
+    color: "#444",
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  buttonContainer: {
+    marginTop: 10,
+  },
+  text: {
     fontSize: 18,
-    padding: 10,
-    lineHeight: 24,
-    fontWeight: "bold",
+    color: "#000",
+    paddingVertical: 4,
   },
-  newsimage: {
-    width: "100%",
-    height: "100%",
-    alignSelf: "center",
-  },
-  content: {
-    fontSize: 16,
-    padding: 10,
-    lineHeight: 24,
-  },
-  description: {
-    fontSize: 16,
-    padding: 10,
-    lineHeight: 24,
-    flex: 1,
-  },
-  credits: {
-    paddingHorizontal: 10,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
-  author: {
-    color: "#64748B",
-  },
-  publishedon: {
-    paddingHorizontal: 5,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
+  selectedText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#1D4ED8",
+    paddingVertical: 4,
   },
 });
 
