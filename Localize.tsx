@@ -11,6 +11,8 @@ i18n.use(initReactI18next).init({
         searchnews: "Search news by title ...",
         selectlanguage: "Select Language",
         selecttheme: "Select Theme",
+        publishedon: "Published on",
+        by: "By",
       },
     },
     bg: {
@@ -21,6 +23,8 @@ i18n.use(initReactI18next).init({
         searchnews: "Търсене на новини по заглавие ...",
         selectlanguage: "Избери език",
         selecttheme: "Изберете тема",
+        publishedon: "публикуван на",
+        by: "от",
       },
     },
   },

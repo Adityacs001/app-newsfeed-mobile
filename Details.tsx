@@ -1,9 +1,17 @@
 import * as React from "react";
-
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import * as deeplinking from "expo-web-browser";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Button,
+} from "react-native";
 import News from "./model/news";
 import Footer from "./Footer";
 import { ThemeContext } from "./Theme";
+import { useTranslation } from "react-i18next";
 
 const getFormattedDate = (input: string): string => {
   let formatteddate: string = input;
@@ -17,12 +25,26 @@ const getFormattedDate = (input: string): string => {
 const Details = ({ route, navigation }: { route: any; navigation: any }) => {
   const news = route.params as News;
   const { theme } = React.useContext(ThemeContext);
+  const { t, i18n } = useTranslation();
 
   return (
     <ScrollView
       style={[styles.wrapper, { backgroundColor: theme.backgroundColor }]}
     >
-      <Text style={[styles.title, { color: theme.color }]}>{news?.title}</Text>
+      <Button
+        title={news.title}
+        onPress={() => deeplinking.openBrowserAsync(news?.url)}
+      >
+        <Text
+          style={[
+            styles.title,
+            { color: theme.color, textAlign: "left", flexWrap: "nowrap" },
+          ]}
+        >
+          {news?.title}
+        </Text>
+      </Button>
+
       <Text style={[styles.content, { color: theme.color }]}>
         {news?.content}
       </Text>
@@ -33,7 +55,7 @@ const Details = ({ route, navigation }: { route: any; navigation: any }) => {
           <Text
             style={[styles.title, { color: theme.color, fontWeight: "normal" }]}
           >
-            Published on :{" "}
+            {t("publishedon")} :{" "}
           </Text>
           {getFormattedDate(news?.publishedAt)}
         </Text>
@@ -51,7 +73,7 @@ const Details = ({ route, navigation }: { route: any; navigation: any }) => {
         <Text
           style={[styles.description, styles.author, { color: theme.color }]}
         >
-          <Text style={[styles.title, { color: theme.color }]}>By</Text>{" "}
+          <Text style={[styles.title, { color: theme.color }]}>{t("by")}</Text>{" "}
           {news?.author}
         </Text>
       </View>
